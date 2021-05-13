@@ -1,2 +1,3 @@
 # Techdegree-Project-8-Employee-Directory
- Techdegree-Project-8-Employee-Directory-work
+ second-upload; I have been working on dimensions and layout.
+ Set up basic @media breaks.
