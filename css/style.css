@@ -12,29 +12,90 @@ body {
      padding-bottom: 4rem;
 }
 
-/*--------- Overlay Styles */
 
 
 
 
 
 
-.hidden {
-    display:none;
+
+/*--------- Modal-overly Styles */
+
+.modal-overlay {
+    position: fixed;
+    text-align: center;
+    display: none;  
+    background-color: rgba(0, 0, 0, 0.8);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    justify-content: center;
+    align-items: center;
 }
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+     align-items: center;
+    background-color: #ffffff;
+    min-width: 300px;
+    border-radius: 10px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-left: 40px;
+    padding-right: 40px;
+
+}
+
+.close {
+    align-self: flex-end;
+    color:#808080;
+    cursor:pointer;
+    font-size: 1.5rem;
+}
+
+hr {
+    width: 100%;
+    color:rgb(128, 128, 128);
+}
+
+
+.left-arrow,
+.right-arrow {
+    font-size: 1.5rem;
+    color: rgb(128, 128, 128);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.modal-image-container {
+    display: flex;
+   
+    
+}
+.modal-image-container img {
+  margin: 20px;
+}
+
 
 /*--------- Header Styles */
 header {
     display: grid;
     grid-template-columns: 1fr;
     justify-content: center;
-    padding: 2rem ;
+    padding: 2rem 0;
 }
 
 h1 {
     text-align: center;
     font-weight: 400;
 }
+
+
 
 /*--------- Grid Styles */
 
@@ -43,7 +104,7 @@ h1 {
     display: grid;
     grid-template-columns: 1fr;
     justify-content: center;
-    grid-gap: 3rem;
+    grid-gap: 1.5rem;
    
 }
 
@@ -58,24 +119,173 @@ h1 {
     border: 3px solid rgb(235, 189, 141);
     border-radius: 10px;
     padding: 1rem 1rem;
-
     cursor: pointer;
 }
 .card:hover {
     box-shadow: 0 0 8px 4px rgba(247, 163, 38, 0.2);
 }
 
-.card .text-container {
+.card .image-container {
     margin-left: auto;
+
 }
 
-.avatar {
+img {
     border-radius: 50%;
+    margin-right: 1rem;
+}
+
+.card .employee-info {
     margin-right: auto;
 }
 
+h2 {
+    margin: 0px;
+    font-weight: 200 bold;
+}
+
+p {
+    margin: 2px;
+    font-size: .75rem;
+    color:#808080;
+}
 
 
 
-/*--------- Media Queries  */
 
+
+
+
+
+
+
+/* -------Media Queries */
+
+    @media only screen and (min-width: 768px) {
+        
+        /* Base Styles */
+
+        body {
+            padding-left: 3rem;
+             padding-right: 3rem;
+        }
+
+        header, 
+        .grid-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Grid Styles */
+
+        .grid-container {
+            grid-template-columns: 1fr 1fr; 
+            grid-gap: 1.5rem;
+            
+        }
+
+        /* Header Styles */
+
+        header {
+            grid-template-columns:  1fr;
+        }
+        h1 {
+            font-size:2rem;
+        }
+
+        
+   
+        
+
+        /* Employee Styles */
+
+        .card {
+            max-width: 385px;
+        }
+        
+        h2 {
+            font-size: 1.15rem;
+        }
+        
+        p {
+            margin-top: 7px;
+            margin-bottom: 7px;
+            font-size: .95rem;
+        }
+
+        /* Overlay & Modal Styles */
+
+        .modal-content {
+            min-width: 410px;   
+        }
+
+        .card {
+            max-width: 385px;
+        }
+
+        p {
+            margin: 10px;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+           
+        }
+    
+    }
+
+    @media only screen and (min-width: 1200px) {
+
+        /* Grid Styles */
+        
+        .grid-container {
+            grid-template-columns: 1fr 1fr 1fr;
+            max-width: 1200px;   
+        }
+
+        /* Employee Styles */
+
+        .card {
+            max-width: 400px;
+        }
+
+        
+
+        h2 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+        
+
+
+
+    }
+
+    @media only screen and (min-width: 1200px) {
+
+        /* Grid Styles */
+        
+        .grid-container {
+            grid-template-columns: 1fr 1fr 1fr;
+            max-width: 1200px;   
+        }
+
+        /* Employee Styles */
+
+        .card {
+            max-width: 460px;
+            
+        }
+
+        img {
+            width: 120px;
+        }
+
+        
+
+        
+
+    }

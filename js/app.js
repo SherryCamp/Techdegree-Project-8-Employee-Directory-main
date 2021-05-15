@@ -1,78 +1,100 @@
-// global variables
-let employees = [];
-const urlAPI = `https://randomuser.me/api/?results=12&inc=name, picture,
-email, location, phone, dob &noinfo &nat=US`
-const gridContainer = document.querySelector(".grid-container");
-const overlay = document.querySelector(".overlay");
-const modalContainer = document.querySelector(".modal-content");
-const modalClose = document.querySelector(".modal-close");
 
-// fetch data from API
-fetch(urlAPI)
-    .then(res => res.results)
-    .then(displayEmployees)
-    .catch(err => console.log(err))
 
-function displayEmployees(employeeData) {
-employees = employeeData;
-// store the employee HTML as we create it
-let employeeHTML = '';
-// loop through each employee and create HTML markup
-employees.forEach((employee, index) => {
-let name = employee.name;
-let email = employee.email;
-let city = employee.location.city;
-let picture = employee.picture;
-// template literals make this so much cleaner!
+/* Variables */
 
-employeeHTML += `
-<div class="card" data-index="${index}">
-<img class="avatar" src="${picture.large}" />
-<div class="text-container">
-<h2 class="name">${name.first} ${name.last}</h2>
-<p class="email">${email}</p>
-<p class="address">${city}</p>
-</div>
-</div>
-`
-});
-gridContainer.innerHTML = employeeHTML;
+const url = 'https://randomuser.me/api/?results=12&nat=gb,us,fr';
+const employees = [];
+const main = document.getElementById('main');
+const modalOverlay= document.querySelector('.modal-overlay');
+
+/* Fetch Functions */
+
+fetch(url)
+    .then((response) => response.json())
+    .then(employeeData);
+
+/* Functions */
+
+// Employee Card Function
+
+
+function employeeData(data) {
+    for(let i = 0; i < data.results.length; i += 1) {
+        employees.push(data.results[i]);
+        main.innerHTML +=  ` 
+            <div class="card">
+                <div class="image-container">
+                    <img src="${data.results[i].picture.medium}" alt="">
+                </div>
+                <div class="employee-info">
+                    <h2 class="employee-name">${data.results[i].name.first} ${data.results[i].name.last}</h2>
+                    <p>${data.results[i].email}<p>
+                    <p>${data.results[i].location.city}</p>
+                </div>
+            </div>
+        `;
+    }
+
+    document.querySelectorAll('.card').forEach((card, index) => {
+        card.addEventListener('click', (event) => {
+            modal(employees[index], index);
+        });
+    });
 }
 
-function displayModal(index) {
-// use object destructuring make our template literal cleaner
-let { name, dob, phone, email, location: { city, street, state, postcode
-}, picture } = employees[index];
-let date = new Date(dob.date);
-const modalHTML = `
-<img class="avatar" src="${picture.large}" />
+// Modal Function
 
-<div class="text-container">
-<h2 class="name">${name.first} ${name.last}</h2>
-<p class="email">${email}</p>
-<p class="address">${city}</p>
-<hr />
-<p>${phone}</p>
-<p class="address">${street}, ${state} ${postcode}</p>
-<p>Birthday:
-${date.getMonth()}/${date.getDate()}/${date.getFullYear()}</p>
-</div>
-`;
-overlay.classList.remove("hidden");
-modalContainer.innerHTML = modalHTML;
+
+function modal(employee, index) {
+    
+    const dob = new Date(Date.parse(employee.dob.date)).toLocaleDateString(navigator.language);
+
+    modalOverlay.innerHTML = `
+        <div class="modal-content" data-index="${index}">
+            <span class="close">X</span>
+            <div class="modal-image-container">
+                <button class="left-arrow"><</button>
+                <img src="${employee.picture.large}" alt="">
+                <button class="right-arrow">></button>
+            </div>
+            <h2 class="employee-name">${employee.name.first} ${employee.name.last}</h2>
+            <p>${employee.email}</p>
+            <p>${employee.location.city}</p>
+            <hr>
+            <p>${employee.cell}</p>
+            <p>${employee.location.street.number} ${employee.location.street.name}, 
+            ${employee.location.state} ${employee.location.postcode}</p>
+            <p>Birthday: ${dob}</p>
+        </div>
+    `;
+
+    modalOverlay.style.display = 'flex';
+    const modalClose = document.getElementsByClassName('close')[0];
+
+    modalClose.addEventListener('click', () => {
+        modalOverlay.style.display = 'none';
+    });
 }
 
-gridContainer.addEventListener('click', e => {
-// make sure the click is not on the gridContainer itself
-if (e.target !== gridContainer) {
-// select the card element based on its proximity to actual element
-clicked
-const card = e.target.closest(".card");
-const index = card.getAttribute('data-index');
-displayModal(index);
-}
+// Event Listeners
+
+
+modalOverlay.addEventListener('click', (event) => {
+    if(event.target.className === 'right-arrow') {
+        let indexPosition = parseInt(modalOverlay
+        .firstElementChild.getAttribute('data-index'));
+        indexPosition += 1;
+        if (indexPosition < 12) {
+            modal(employees[indexPosition], indexPosition);
+        }
+    }
+    if(event.target.className === 'left-arrow') {
+        let indexPosition = parseInt(modalOverlay.
+        firstElementChild.getAttribute('data-index'));
+        indexPosition -= 1;
+        if (indexPosition > -1) {
+            modal(employees[indexPosition], indexPosition);
+        }
+    }
 });
 
-modalClose.addEventListener('click', () => {
-overlay.classList.add("hidden");
-});
