@@ -98,3 +98,30 @@ modalOverlay.addEventListener('click', (event) => {
     }
 });
 
+
+const searchString = document.getElementById('search');
+const a = document.getElementsByClassName('card');
+
+searchString.addEventListener('keyup', () => {
+    const input = searchString.value.toLowerCase();
+
+    for (let i = 0; i < a.length; i += 1) {
+        const nameData = a[i].innerHTML;
+        if (nameData.toLowerCase().indexOf(input) > -1) {
+            a[i].style.display = "";
+            } else {
+            a[i].style.display = "none";
+        }
+    }
+});
+
+
+
+searchString.addEventListener('search', () => {
+    if (event.target.value === '') {
+      for (let i = 0; i < a.length; i += 1) {
+        a[i].style.display = "";
+      }
+    }
+});
+
