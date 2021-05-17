@@ -93,15 +93,15 @@ header {
    display:flex;
    flex-direction: column;
    
-    justify-content: left; 
+    justify-content: space-between; 
     padding-bottom: 2rem;
    
 }
 
 h1 {
     max-width: 100%;
-    display: inline-flexbox;
-    justify-content: stretch;
+    display: flexbox;
+    
     font-size: 1.7rem;
     font-weight: 300;
     margin-left:4.2rem;
@@ -112,10 +112,7 @@ h1 {
 
 /*--------- input Styles */
 input {
-    display: inline-flexbox;
-    
-    justify-content: center;
-   
+    display: flexbox;
     width: auto;
     font-size: 1.3rem;
     padding: 1.8rem;
@@ -233,22 +230,11 @@ p {
             
             display:flex;
             flex-direction:row;
-        
+            justify-content: space-between;
             padding: 2rem;
-             align-content:start;
             
-           
         }
         
-
-         input {
-             max-width: 60%;
-               align-content:end;
-         }
-           
-           
-        
-
 
        
     img {
