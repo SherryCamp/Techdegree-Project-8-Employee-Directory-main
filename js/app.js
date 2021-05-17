@@ -51,7 +51,7 @@ function modal(employee, index) {
 
     modalOverlay.innerHTML = `
         <div class="modal-content" data-index="${index}">
-            <span class="close">X</span>
+            <span class="close">x</span>
             <div class="modal-image-container">
                 <button class="left-arrow"><</button>
                 <img src="${employee.picture.large}" alt="">
